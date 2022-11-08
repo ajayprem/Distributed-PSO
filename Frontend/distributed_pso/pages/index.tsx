@@ -1,6 +1,6 @@
 import { Group, Container, Divider, Select, Title, Text, Radio, Button, NumberInput} from '@mantine/core';
 import { useState } from 'react';
-import { IconSquaresFilled } from '@tabler/icons';
+import axios from "axios";
 
 export default function Home() {
 
@@ -8,6 +8,16 @@ export default function Home() {
   const [chosen1, setChosen1] = useState(false);
   const [chosen2, setChosen2] = useState(false);
   const [many, setMany] = useState(false);
+
+  function sendReq(){
+    const url = 'http://localhost:8000/single'
+    fetch(url, {method:'GET', mode:'cors'})
+    .then(function(response) {
+      return response.json();
+    }).then(function(data) {
+      console.log(data);  
+    });
+  }
 
   return (
     <Container size="lg" style={{marginTop:"20px"}}>
@@ -86,7 +96,7 @@ export default function Home() {
 
       <Group position="center" style={{marginTop:"40px"}}>
 
-        <Button disabled={!chosen1 || !chosen2}>
+        <Button onClick={sendReq} disabled={!chosen1 || !chosen2} >
           Run
         </Button>
 
